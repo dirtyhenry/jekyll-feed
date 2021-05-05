@@ -88,8 +88,9 @@ module JekyllFeed
         # feed path simple.
         next if %r![^a-zA-Z0-9_]!.match?(tag)
 
-        Jekyll.logger.info "Jekyll Feed:", "Generating feed for posts tagged #{tag}"
-        path = "#{tags_path}#{tag}.xml"
+        normalized_tag = tag.downcase
+        Jekyll.logger.info "Jekyll Feed:", "Generating feed for posts tagged #{tag} -> #{normalized_tag}"
+        path = "#{tags_path}#{normalized_tag}.xml"
         next if file_exists?(path)
 
         @site.pages << make_page(path, :tags => tag)
